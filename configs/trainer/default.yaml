@@ -2,18 +2,29 @@ _target_: lightning.pytorch.trainer.Trainer
 
 default_root_dir: ${paths.output_dir}
 
-min_epochs: 1 # prevents early stopping
-max_epochs: 10
+max_steps: -1
+max_epochs: -1
+val_check_interval: 1000
+accumulate_grad_batches: 1
+log_every_n_steps: 10
 
-accelerator: cpu
+accelerator: gpu
 devices: 1
+precision: bf16-mixed
+gradient_clip_val: 1.0
+gradient_clip_algorithm: norm
 
-# mixed precision for extra speed-up
-# precision: 16
 
-# perform a validation loop every N training epochs
-check_val_every_n_epoch: 1
-
-# set True to to ensure deterministic results
-# makes training slower but gives more reproducibility than just setting seeds
-deterministic: False
+#     return L.Trainer(
+#         devices=devices,
+#         accelerator=accelerator,
+#         max_steps=max_steps,
+#         max_epochs=max_epochs,
+#         val_check_interval=eval_freq,
+#         log_every_n_steps=log_every_n_steps,
+#         callbacks=[model_checkpoint, gradient_norm_callback],
+#         precision=precision,
+#         accumulate_grad_batches=accumulate_grad_batches,
+#         gradient_clip_val=gradient_clip_val,
+#         gradient_clip_algorithm="norm",
+#     )

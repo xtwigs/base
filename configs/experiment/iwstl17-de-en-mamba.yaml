@@ -1,0 +1,15 @@
+source: de
+target: en
+model: mamba_mt
+ds: iwslt17
+
+dropout: 0.1
+
+train_batch_size: 128
+val_batch_size: 128
+test_batch_size: null
+
+run_name_suffix: ""
+resume_path: null
+
+vocab_size: 32000
